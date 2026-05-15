@@ -1,3 +1,8 @@
+variable "ec2_instance_count" {
+  default = 2
+  type = number
+}
+
 variable "ec2_instance_type" {
   default = "t2.micro"
   type = string
