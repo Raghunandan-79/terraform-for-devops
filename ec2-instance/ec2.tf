@@ -54,11 +54,14 @@ resource "aws_security_group" "my_group" {
 
 # ec2 instance
 resource "aws_instance" "my_instance" {
-  count = var.ec2_instance_count
+  for_each = tomap({
+    automate_micro = "t2.micro",
+    automate_medium = "t2.medium"
+  })
 
   key_name = aws_key_pair.my_key.key_name
   security_groups = [aws_security_group.my_group.name]
-  instance_type = var.ec2_instance_type
+  instance_type = each.value
   ami = var.ec2_ami_id
   user_data = file("install_nginx.sh")
 
@@ -68,6 +71,6 @@ resource "aws_instance" "my_instance" {
   }
 
   tags = {
-    Name = "automated-ec2"
+    Name = each.key
   }
 }
