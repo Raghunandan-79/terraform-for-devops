@@ -59,6 +59,8 @@ resource "aws_instance" "my_instance" {
     automate_medium = "t2.medium"
   })
 
+  depends_on = [ aws_security_group.my_group, aws_key_pair.my_key ]
+
   key_name = aws_key_pair.my_key.key_name
   security_groups = [aws_security_group.my_group.name]
   instance_type = each.value
