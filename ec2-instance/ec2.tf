@@ -68,6 +68,6 @@ resource "aws_instance" "my_instance" {
   }
 
   tags = {
-    Name = "automated-ec2"
+    Name = "${var.env}-automated-ec2"
   }
 }
